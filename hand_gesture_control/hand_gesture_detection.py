@@ -8,6 +8,7 @@ import mediapipe as mp
 class HandGestureControl(Node):
     def __init__(self):
         super().__init__('hand_gesture_control')
+        self.declare_parameter('show_window', False)
         self.subscription = self.create_subscription(
             Image,
             '/camera/camera/color/image_raw',
@@ -29,9 +30,12 @@ class HandGestureControl(Node):
             for hand_landmarks in results.multi_hand_landmarks:
                 self.mp_draw.draw_landmarks(frame, hand_landmarks, mp.solutions.hands.HAND_CONNECTIONS)
         
-        # Exibe a imagem
-        cv2.imshow("Hand Gesture Control", frame)
-        cv2.waitKey(1)
+        # Checa o parâmetro 'show_window' para determinar se deve exibir a imagem
+        show_window = self.get_parameter('show_window').get_parameter_value().bool_value
+        if show_window:
+            cv2.imshow("Hand Gesture Control", frame)
+            cv2.waitKey(1)
+
 
 def main(args=None):
     rclpy.init(args=args)
