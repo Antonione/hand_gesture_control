@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'hand_gesture_detection = hand_gesture_control.hand_gesture_detection:main',
+            'attention_detection = hand_gesture_control.attention_detection:main',
         ],
     },
 )

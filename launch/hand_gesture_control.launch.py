@@ -16,5 +16,11 @@ def generate_launch_description():
             name='hand_gesture_control',
             output='screen',
             parameters=[{'show_window': LaunchConfiguration('show_window')}],  # Parâmetro passado via Launch
-        )
+        ),
+        Node(
+            package='hand_gesture_control',
+            executable='attention_detection',
+            name='attention_detection',
+            output='screen'
+        ),
     ])
